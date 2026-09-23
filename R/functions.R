@@ -134,6 +134,30 @@ check_inf <- function(dataset, value_var_name = 'value', dataset_name = NULL) {
 }
 
 
+#' harmonize_trn_service_units
+#'
+#' An internal function that expresses transport service output in million pass-km
+#' and million ton-km. GCAM v9.1 reports transport service in billion km while
+#' earlier versions report it in million km, so billion rows are rescaled and relabeled.
+#'
+#' @param dataset Transport service query result containing `value` and `Units` columns.
+#' @return Dataset with transport service values in million pass-km / million ton-km.
+#' @keywords internal
+harmonize_trn_service_units <- function(dataset) {
+  Units <- value <- NULL
+
+  if (!"Units" %in% names(dataset)) return(dataset)
+
+  dataset %>%
+    dplyr::mutate(
+      is_billion = grepl("^billion ", Units),
+      value = dplyr::if_else(is_billion, value * 1000, value),
+      Units = dplyr::if_else(is_billion, sub("^billion ", "million ", Units), Units)
+    ) %>%
+    dplyr::select(-is_billion)
+}
+
+
 #' check_queries
 #'
 #' An internal function designed to assess if all the necessary queries to compute
@@ -4336,6 +4360,7 @@ get_energy_service_transportation <- function(GCAM_version = 'v8.2') {
   energy_service_transportation <-
     check_inf(rgcam::getQuery(prj, "transport service output by tech and vintage"),
               dataset_name = "transport service output by tech and vintage") %>%
+    harmonize_trn_service_units() %>%
     tidyr::separate(technology, into = c("technology", NA), sep = ",year") %>%
     dplyr::group_by(dplyr::across(-value)) %>%
     dplyr::summarise(value = sum(value), .groups = 'drop') %>%
@@ -6428,6 +6453,7 @@ get_transport_sales <- function(GCAM_version = 'v8.2') {
   # get transport service
   trn_serv <- check_inf(rgcam::getQuery(prj, "transport service output by tech and vintage"),
                         dataset_name = "transport service output by tech and vintage") %>%
+    harmonize_trn_service_units() %>%
     tidyr::separate(technology, into = c("technology", "vintage"), sep = ",") %>%
     dplyr::mutate(vintage = as.integer(sub("year=", "", vintage))) %>%
     dplyr::filter(vintage <= year) %>%    ##Only vintages from the model year or before will be in existence
@@ -6546,6 +6572,7 @@ get_transport_stock <- function(GCAM_version = 'v8.2') {
   # get transport service
   trn_serv <- check_inf(rgcam::getQuery(prj, "transport service output by tech and vintage"),
                         dataset_name = "transport service output by tech and vintage") %>%
+    harmonize_trn_service_units() %>%
     tidyr::separate(technology, into = c("technology", "vintage"), sep = ",") %>%
     dplyr::mutate(vintage = as.integer(sub("year=", "", vintage))) %>%
     dplyr::filter(vintage <= year) %>%    ##Only vintages from the model year or before will be in existence

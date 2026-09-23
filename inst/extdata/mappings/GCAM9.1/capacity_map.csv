@@ -51,6 +51,12 @@ H2 central production,coal,coal chemical CCS,Secondary Energy|Hydrogen,Secondary
 H2 industrial,onsite production,electrolysis,Secondary Energy|Hydrogen,Secondary Energy|Hydrogen|Other,,,,,Secondary Energy,1
 H2 wholesale dispensing,forecourt production,electrolysis,Secondary Energy|Hydrogen,Secondary Energy|Hydrogen|Other,,,,,Secondary Energy,1
 H2 wholesale dispensing,forecourt production,natural gas steam reforming,Secondary Energy|Hydrogen,Secondary Energy|Hydrogen|Gas,Secondary Energy|Hydrogen|Fossil,,,,Secondary Energy,1
+H2 LDV,onsite production,electrolysis,Secondary Energy|Hydrogen,Secondary Energy|Hydrogen|Other,,,,,Secondary Energy,1
+H2 LDV,onsite production,natural gas steam reforming,Secondary Energy|Hydrogen,Secondary Energy|Hydrogen|Gas,Secondary Energy|Hydrogen|Fossil,,,,Secondary Energy,1
+H2 MHDV,onsite production,electrolysis,Secondary Energy|Hydrogen,Secondary Energy|Hydrogen|Other,,,,,Secondary Energy,1
+H2 MHDV,onsite production,natural gas steam reforming,Secondary Energy|Hydrogen,Secondary Energy|Hydrogen|Gas,Secondary Energy|Hydrogen|Fossil,,,,Secondary Energy,1
+LH2,onsite production,electrolysis,Secondary Energy|Hydrogen,Secondary Energy|Hydrogen|Other,,,,,Secondary Energy,1
+LH2,onsite production,natural gas steam reforming,Secondary Energy|Hydrogen,Secondary Energy|Hydrogen|Gas,Secondary Energy|Hydrogen|Fossil,,,,Secondary Energy,1
 district heat,biomass,biomass,Secondary Energy|Heat,Secondary Energy|Heat|Biomass,,,,,Secondary Energy,1
 district heat,coal,coal,Secondary Energy|Heat,Secondary Energy|Heat|Coal,Secondary Energy|Heat|Fossil,,,,Secondary Energy,1
 district heat,gas,gas,Secondary Energy|Heat,Secondary Energy|Heat|Gas,Secondary Energy|Heat|Fossil,,,,Secondary Energy,1
